@@ -1,7 +1,7 @@
-const path = require('path-extra')
-const fs = require('fs-extra')
-const files = require('./fileUtilities')
-const extract = require('./extract')
+import path from 'path-extra';
+import fs from 'fs-extra';
+import * as files from './fileUtilities.js';
+import * as extract from './extract.js';
 
 const backup = async argv => {
   try {
@@ -40,4 +40,4 @@ const mmarkdown = async argv => {
   }
 }
 
-module.exports = mmarkdown
+export default mmarkdown;
