@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-const mmarkdown = require('./src/mmarkdown')
+import mmarkdown from './src/mmarkdown.js';
+import yargs from 'yargs';
 
-const argv = require('yargs')
+const argv = yargs
   .pkgConf('mmarkdown')
   .default('src', './ReadmeSrc/Readme.md')
   .default('out', './Readme.md')
