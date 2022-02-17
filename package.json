@@ -1,5 +1,6 @@
 {
   "name": "mmarkdown",
+  "type": "module",
   "version": "1.0.0",
   "description": "Caffeinated markdown",
   "main": "index.js",

@@ -1,5 +1,4 @@
-'use strict'
-const path = require('path')
+import path from 'path';
 
 const CWD = process.cwd()
 
@@ -38,7 +37,9 @@ const stripBlocks = function(str) {
   return arr.reduce((acc, match, i) => acc.replace(match, id(i)), str)
 }
 
-const parseBlocks = str => {
+const extractBlocks = str => codeBlocks(str)
+
+export const parseBlocks = str => {
   const text = stripBlocks(str)
   const blocks = codeBlocks(str)
   const markers = text.match(idRegex) || []
@@ -46,9 +47,9 @@ const parseBlocks = str => {
   return {text, blocks, markers}
 }
 
-const injectBlocks = async (str, o, jsFile) => {
+export const injectBlocks = async (str, o, jsFile) => {
   const fenceBlocks = str.match(idRegex) || []
-  const scriptsFile = jsFile ? require(path.join(CWD, jsFile)) : {}
+  const scriptsFile = jsFile ? (await import(path.join(CWD, jsFile))) : {}
   const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor
 
   const reducer = async (acc, match, i) => {
@@ -66,7 +67,3 @@ const injectBlocks = async (str, o, jsFile) => {
   return await fenceBlocks.reduce(reducer, str)
 }
 
-module.exports = {
-  parseBlocks,
-  injectBlocks
-}
